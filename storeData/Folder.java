@@ -36,9 +36,9 @@ public class Folder {
     {    
         System.out.print("1. Create Folder\n");
         System.out.print("2. Delete Folder\n");
-        System.out.print("3. Edit Event\n");
-        System.out.print("4. Delete Event\n");
-        System.out.print("5. Edit Folder name\n");
+        System.out.print("3. Exit\n");
+//        System.out.print("4. Delete Event\n");
+//        System.out.print("5. Edit Folder name\n");
         
          
       System.out.println("Enter your choice");    
@@ -52,16 +52,11 @@ public class Folder {
         connect();
 		String query = "CREATE TABLE "+f_name+" (eventname varchar(255 ))"; 
         stmt.executeUpdate(query);
+        System.out.println("Successful");  
+        gotoFolder();       
             	
         }
         else if (c_choice == 2) {
-
-			}
-//        	String query = "show tables"; 
-//        	PreparedStatement stmt2=con.prepareStatement("insert into personal(event_name) values(?)");      
-//            stmt2.setString(1,e_name);
-//            stmt2.execute();
-//
         connect();
         // Get the database metadata
 
@@ -73,9 +68,10 @@ public class Folder {
 
         	  ResultSet resultSet = metadata.getTables("checking", null, "%", types);
         	  int i=1;
+       		  int a;
+    		  
         	  while (resultSet.next()) {
-        		  int a;
-        		  a = i++;
+        		a = i++;
         	    String tableName = resultSet.getString(3);
 
 //        	    String tableCatalog = resultSet.getString(1);
@@ -83,12 +79,26 @@ public class Folder {
 //        	    String tableSchema = resultSet.getString(2);
 
         	    System.out.println("Table " + a + ":" + tableName );
+        	    
+        	  }
+        	  System.out.println("Enter the table name to delete");
+        	  Scanner keyboard=new Scanner(System.in);
+        	  String f_name = keyboard.nextLine();
+        	  
+        }else if(c_choice == 3) {
+        	System.out.println("Bye");
         }
+        
+        else {
+        	System.out.println("Oops! Enter your choice between 1 and 2");
+        	gotoFolder();
+        }
+
     }             
     catch(Exception e)    
     {System.out.println(e);}    
     finally{    
-        System.out.println("Successful");    
+          
     }    
 
 }   
