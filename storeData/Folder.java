@@ -2,14 +2,10 @@ package storeData;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Scanner;
-
-
 import com.mysql.cj.jdbc.DatabaseMetaData;
-
-
-
 
 public class Folder {
 
@@ -26,14 +22,12 @@ public class Folder {
         }catch(Exception e) {
         	{System.out.println(e);}
         }
-//		System.out.println("I am from connect");
-		
+//		System.out.println("I am from connect");		
         }
 	
 	public void gotoFolder(){
 	//System.out.println("Welcome to Your database");    
-    try    
-    {    
+     
         System.out.print("1. Create Folder\n");
         System.out.print("2. Delete Folder\n");
         System.out.print("3. Exit\n");
@@ -45,48 +39,56 @@ public class Folder {
       int c_choice=keyboard.nextInt();
 
         if (c_choice == 1) {
-        System.out.print("Enter your folder name");
+        	   try    
+        	    {
+        	System.out.print("Enter your folder name");
         Scanner keyboard=new Scanner(System.in);
         String f_name = keyboard.nextLine();
         System.out.println("Event name :"+ " "+f_name); 
         connect();
 		String query = "CREATE TABLE "+f_name+" (eventname varchar(255 ))"; 
         stmt.executeUpdate(query);
-        System.out.println("Successful");  
+        PreparedStatement stmt1=conn.prepareStatement("insert into folder_names(fnames) values(?)");      
+        stmt1.setString(1,f_name);
+        stmt1.execute();
+        System.out.println("Successfully Created");  
+//        System.out.println("Enter you Event Name");    
+//        String e_name=keyboard.nextLine();     
         gotoFolder();       
-            	
+        	
+        }               
+    catch(Exception e)    
+    {System.out.println(e);
+    gotoFolder();}    
         }
         else if (c_choice == 2) {
         connect();
         // Get the database metadata
-
-        	  DatabaseMetaData metadata = (DatabaseMetaData) conn.getMetaData();
-
-        	  // Specify the type of object; in this case we want tables
-
-        	  String[] types = {"TABLE"};
-
-        	  ResultSet resultSet = metadata.getTables("checking", null, "%", types);
-        	  int i=1;
-       		  int a;
-    		  
-        	  while (resultSet.next()) {
-        		a = i++;
-        	    String tableName = resultSet.getString(3);
-
-//        	    String tableCatalog = resultSet.getString(1);
+//        	  DatabaseMetaData metadata = (DatabaseMetaData) conn.getMetaData();
+//        	  // Specify the type of object; in this case we want tables
+//        	  String[] types = {"TABLE"};
 //
-//        	    String tableSchema = resultSet.getString(2);
+//        	  ResultSet resultSet = metadata.getTables("checking", null, "%", types);
+//        	  int i=1;
+//       		  int a;  
+//       		  String tableName;
+//        	  while (resultSet.next()) {
+//        		a = i++;
+//        		tableName = resultSet.getString(3);
+////        	    String tableCatalog = resultSet.getString(1);
+////        	    String tableSchema = resultSet.getString(2);
+//        	    System.out.println("Table " + a + ":" + tableName );   
+//            	PreparedStatement stmt1=conn.prepareStatement("insert into table_names(tnames) values(?)");      
+//                stmt1.setString(1,tableName);
+//                stmt1.execute();
+//        	  }
+//        	  System.out.println("Enter the table name to delete");
+//        	  Scanner keyboard=new Scanner(System.in);
+//        	  String f_name = keyboard.nextLine();
 
-        	    System.out.println("Table " + a + ":" + tableName );
-        	    
-        	  }
-        	  System.out.println("Enter the table name to delete");
-        	  Scanner keyboard=new Scanner(System.in);
-        	  String f_name = keyboard.nextLine();
         	  
         }else if(c_choice == 3) {
-        	System.out.println("Bye");
+        	System.out.println("Bye..");
         }
         
         else {
@@ -94,12 +96,7 @@ public class Folder {
         	gotoFolder();
         }
 
-    }             
-    catch(Exception e)    
-    {System.out.println(e);}    
-    finally{    
-          
-    }    
+   
 
 }   
 } 
