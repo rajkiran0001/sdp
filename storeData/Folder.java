@@ -36,12 +36,12 @@ public class Folder {
             
         System.out.println("Enter you Event Name");    
         String e_name=name.nextLine();
-        System.out.print("Enter the folder number: ");
-        System.out.print("1. Family");
-        System.out.print("2. Personal");
-        System.out.print("3. Business");
-        System.out.print("4. Entertainment");
-        System.out.print("5. Exit");
+        System.out.print("Enter the folder number to add this Event: \n");
+        System.out.print("1. Family\n");
+        System.out.print("2. Personal\n");
+        System.out.print("3. Business\n");
+        System.out.print("4. Entertainment\n");
+        System.out.print("5. Exit\n");
 
  	   try    
 	    {
@@ -94,11 +94,11 @@ public class Folder {
 //        System.out.println("------------------------");    
 //        System.out.println("Event name :"+ " "+e_name);		
 //        
-        System.out.println("1.Create your own Folder");
-        System.out.println("2. Exit");
+        System.out.println("1.Create your own Folder\n");
+        System.out.println("2. Exit\n");
         eventNumber = in.nextInt();
         if(eventNumber == 1) {
-        System.out.print("Enter your folder name");
+        System.out.print("Enter your folder name\n");
         Scanner keyboard=new Scanner(System.in);
         String fo_name = keyboard.nextLine();
         System.out.println("Folder name :"+ " "+fo_name); 
@@ -124,9 +124,26 @@ public class Folder {
             System.out.println("Folder Successfully Created");  
             System.out.println("--------------------\n");
             
-                
+//            -------------------------------------------------------
+            
+            System.out.print("1.Add event to this folder\n");
+            System.out.print("2.Not now \n");
+            eventNumber = in.nextInt();
+            if(eventNumber == 1) {
+            System.out.print("Enter your Event name \n");	
+            Scanner enter=new Scanner(System.in);
+            String event_folder = enter.nextLine();
+            System.out.println("--------------------");  
+            System.out.println(event_folder + " Event is added to the Folder: "+ fo_name); 
+            System.out.println("Bye..");
+            System.out.println("--------------------\n");
+            
+            }else if(eventNumber == 2){
+            	System.out.println("Bye..");
+            }
+     
             } else if(eventNumber == 2){
-            	System.out.println(" bye..");
+            	System.out.println(" Bye..");
 //            	gotoinsertEvent(); 
             }
 //    	}
