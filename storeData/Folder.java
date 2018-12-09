@@ -107,45 +107,55 @@ public class Folder {
 //    		System.out.println("folder is in the database");
 //
 //    	}else {
-            PreparedStatement stmt2=conn.prepareStatement("insert into folder_names(f_name) values(?)");      
-            stmt2.setString(1,fo_name);
-            stmt2.execute();
-            System.out.println("YOUR FOLDER(S)");
-            ResultSet rs = stmt.executeQuery("select * from folder_names");
-            int i=1;
-    		int a;
-            while (rs.next()) {
-            	a = i++;
-                String folderName = rs.getString("f_name");
-                System.out.println( + a + ": " + folderName );
-            }
-            
-            System.out.println("--------------------");  
-            System.out.println("Folder Successfully Created");  
-            System.out.println("--------------------\n");
+//            PreparedStatement stmt2=conn.prepareStatement("insert into folder_names(f_name) values(?)");      
+//            stmt2.setString(1,fo_name);
+//            stmt2.execute();
+
             
 //            -------------------------------------------------------
             
             System.out.print("1.Add event to this folder\n");
-            System.out.print("2.Not now \n");
+            System.out.print("2.show events \n");
             eventNumber = in.nextInt();
             if(eventNumber == 1) {
             System.out.print("Enter your Event name \n");	
             Scanner enter=new Scanner(System.in);
-            String event_folder = enter.nextLine();
+            String enter_fevent = enter.nextLine();
+//            String event_folder = enter.nextLine();
+            PreparedStatement stmt3=conn.prepareStatement("insert into folder_names(f_name,e_folder) values(?,?)");      
+            stmt3.setString(1,fo_name);
+            stmt3.setString(2,enter_fevent);
+            stmt3.execute();
             System.out.println("--------------------");  
-            System.out.println(event_folder + " Event is added to the Folder: "+ fo_name); 
+            System.out.println(enter_fevent + " Event is added to the Folder: "+ fo_name); 
+
+            System.out.println("--------------------");  
+            System.out.println("Folder Successfully Created");  
+            System.out.println("--------------------\n");
             System.out.println("Bye..");
             System.out.println("--------------------\n");
             
-            }else if(eventNumber == 2){
+            }
+            else if(eventNumber == 2){
+                System.out.println("YOUR FOLDER(S)");
+                ResultSet rs = stmt.executeQuery("select * from folder_names");
+                int i=1;
+        		int a;
+                while (rs.next()) {
+                	a = i++;
+                    String folderName = rs.getString("f_name");
+                    String eventName = rs.getString("e_folder");
+                    System.out.println( + a + ": " + folderName + " " +eventName );
+                }
+                
             	System.out.println("Bye..");
             }
      
-            } else if(eventNumber == 2){
-            	System.out.println(" Bye..");
-//            	gotoinsertEvent(); 
-            }
+            } 
+//        else if(eventNumber == 2){
+//            	System.out.println(" Bye..");
+////            	gotoinsertEvent(); 
+//            }
 //    	}
     	
 //	    String stmtf = "select * from folder_names";
