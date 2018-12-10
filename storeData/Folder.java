@@ -3,9 +3,11 @@ package storeData;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.Scanner;
-import com.mysql.cj.jdbc.DatabaseMetaData;
+//import com.mysql.cj.jdbc.DatabaseMetaData;
+//import com.mysql.cj.xdevapi.Statement;
 
 public class Folder {
 
@@ -14,9 +16,7 @@ public class Folder {
 	 Connection conn;
 	 String folderName;
 	 Scanner name=new Scanner(System.in);
-     Scanner in = new Scanner(System.in);
      int eventNumber;
-//	 String databaseName = "checking";
 	public void connect() {
         try{
         	
@@ -29,154 +29,34 @@ public class Folder {
         }
 	
         }
-	
-	
-	public void gotoinsertEvent(){
-		System.out.print("\n");
-            
-        System.out.println("Enter you Event Name");    
-        String e_name=name.nextLine();
-        System.out.print("Enter the folder number to add this Event: \n");
-        System.out.print("1. Family\n");
-        System.out.print("2. Personal\n");
-        System.out.print("3. Business\n");
-        System.out.print("4. Entertainment\n");
-        System.out.print("5. Exit\n");
 
- 	   try    
-	    {
-        connect();
- 
-
-        eventNumber = in.nextInt();
-        if (eventNumber == 1) {
-        	PreparedStatement stmt1=conn.prepareStatement("insert into family(event_name) values(?)");      
-        stmt1.setString(1,e_name);
-        stmt1.execute();
-        gotoFolder();
-        }
-        else if (eventNumber == 2) {
-        	PreparedStatement stmt2=conn.prepareStatement("insert into personal(event_name) values(?)");      
-            stmt2.setString(1,e_name);
-            stmt2.execute();
-            gotoFolder();
-        }
-        else if (eventNumber == 3) {
-        	PreparedStatement stmt3=conn.prepareStatement("insert into business(event_name) values(?)");      
-            stmt3.setString(1,e_name);
-            stmt3.execute();
-            gotoFolder();
-        }
-        else if (eventNumber == 4) {
-        	PreparedStatement stmt4=conn.prepareStatement("insert into entertainment(event_name) values(?)");      
-            stmt4.setString(1,e_name);
-            stmt4.execute();
-            gotoFolder();
-        }else if(eventNumber == 5){
-        	System.out.println("Bye..");
-//        	gotoFolder();
-        }
-        
-	    }catch(Exception e)    
- 	    {System.out.println(e);
- 	    gotoinsertEvent();}    
- }
-//        ---------------------------------------------------------
         public void gotoFolder(){
-//        String e_name=name.nextLine();
-            System.out.println("--------------------");  
-            System.out.println("Successfully done");  
-            System.out.println("--------------------\n");
+        	
         try {	
-//        PreparedStatement stmt1=conn.prepareStatement("insert into event_names(e_name) values(?)");      
-//        stmt1.setString(1,e_name);        
-//        stmt1.execute();
-//        System.out.println("------------------------");    
-//        System.out.println("Event name :"+ " "+e_name);		
-//        
-        System.out.println("1.Create your own Folder\n");
-        System.out.println("2. Exit\n");
-        eventNumber = in.nextInt();
-        if(eventNumber == 1) {
-        System.out.print("Enter your folder name\n");
-        Scanner keyboard=new Scanner(System.in);
-        String fo_name = keyboard.nextLine();
-        System.out.println("Folder name :"+ " "+fo_name); 
-        
-//        if (fo_name.equals(folderName)){
-//    		System.out.println("folder is in the database");
-//
-//    	}else {
-//            PreparedStatement stmt2=conn.prepareStatement("insert into folder_names(f_name) values(?)");      
-//            stmt2.setString(1,fo_name);
-//            stmt2.execute();
+        connect();
 
-            
-//            -------------------------------------------------------
-            
-            System.out.print("1.Add event to this folder\n");
-            System.out.print("2.show events \n");
-            eventNumber = in.nextInt();
-            if(eventNumber == 1) {
-            System.out.print("Enter your Event name \n");	
-            Scanner enter=new Scanner(System.in);
-            String enter_fevent = enter.nextLine();
-//            String event_folder = enter.nextLine();
-            PreparedStatement stmt3=conn.prepareStatement("insert into folder_names(f_name,e_folder) values(?,?)");      
-            stmt3.setString(1,fo_name);
-            stmt3.setString(2,enter_fevent);
-            stmt3.execute();
-            System.out.println("--------------------");  
-            System.out.println(enter_fevent + " Event is added to the Folder: "+ fo_name); 
-
-            System.out.println("--------------------");  
-            System.out.println("Folder Successfully Created");  
-            System.out.println("--------------------\n");
-            System.out.println("Bye..");
-            System.out.println("--------------------\n");
-            
-            }
-            else if(eventNumber == 2){
-                System.out.println("YOUR FOLDER(S)");
+//                if(eventNumber == 1){
                 ResultSet rs = stmt.executeQuery("select * from folder_names");
-                int i=1;
-        		int a;
+                System.out.println("Folder name	--> Event name ");
                 while (rs.next()) {
-                	a = i++;
                     String folderName = rs.getString("f_name");
                     String eventName = rs.getString("e_folder");
-                    System.out.println( + a + ": " + folderName + " " +eventName );
+                    System.out.println(folderName + " --> " +eventName );
                 }
-                
-            	System.out.println("Bye..");
-            }
-     
-            } 
-//        else if(eventNumber == 2){
-//            	System.out.println(" Bye..");
-////            	gotoinsertEvent(); 
-//            }
-//    	}
-    	
-//	    String stmtf = "select * from folder_names";
-////	    ResultSet rsf = conn.executeQuery(stmtf);
-//	    ResultSet rsf = conn.createStatement().executeQuery(stmtf);
-//	    while(rsf.next()) {
-//	    	String fo_name = rs.getString("f_name");
-////	    	String pass = rs.getString("password");
-//	    	System.out.println("ffffffffffffffffffffff"+ " "+fo_name);
-//	    }
-        
-        
- 
-//        System.out.println("Folder Names: \n");
-        
-        
-//        gotoinsertEvent();            	
+        		System.out.println("Enter the event name to delete" );
+        		String delete_event = name.nextLine();  
+//        		Statement stmt = conn.createStatement();
+        		PreparedStatement stmt=conn.prepareStatement("DELETE FROM folder_names WHERE e_folder=?");
+        	      stmt.setString(1, delete_event);
+        	      stmt.executeUpdate();
+        		//                stmt.executeUpdate("DELETE FROM folder_names WHERE e_folder='+flydelete_event+'");
+            	System.out.println("successful");
+//            }     
+                    	
         }               
     catch(Exception e)    
     {System.out.println(e);
-    gotoinsertEvent();}    
+    gotoFolder();}    
         }
 
 } 

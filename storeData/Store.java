@@ -7,6 +7,6 @@ public class Store {
 public static void main(String args[])    
 {    
 Folder obj = new Folder();
-obj.gotoinsertEvent();
+obj.gotoFolder();
 }    
 }  
